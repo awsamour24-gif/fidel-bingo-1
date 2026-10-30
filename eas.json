@@ -13,7 +13,8 @@
       "android": {
         "buildType": "apk",
         "gradleCommand": ":app:assembleRelease",
-        "buildArtifactPaths": ["android/app/build/outputs/apk/release/*.apk"]
+        "buildArtifactPaths": ["android/app/build/outputs/apk/release/*.apk"],
+        "credentialsSource": "local"
       },
       "ios": {
         "simulator": true

@@ -11,8 +11,8 @@ import {
   ScrollView,
   Pressable,
 } from 'react-native';
+import { Platform } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
-import * as NavigationBar from 'expo-navigation-bar';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { bingoCards } from './cartela';
 
@@ -43,7 +43,10 @@ export default function App() {
   useEffect(() => {
     const setupFullScreen = async () => {
       try {
-        if (NavigationBar.setVisibilityAsync) await NavigationBar.setVisibilityAsync('hidden');
+        if (Platform.OS === 'android') {
+          const NavigationBar = await import('expo-navigation-bar');
+          if (NavigationBar.setVisibilityAsync) await NavigationBar.setVisibilityAsync('hidden');
+        }
       } catch (e) {}
     };
     setupFullScreen();

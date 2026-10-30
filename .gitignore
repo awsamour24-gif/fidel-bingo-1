@@ -1,1 +1,5 @@
 node_modules
+
+# Credentials
+credentials.json
+*.jks
