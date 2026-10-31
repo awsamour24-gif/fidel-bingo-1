@@ -141,20 +141,27 @@ export default function App() {
   };
 
   const removeCard = (cardId) => {
-    Alert.alert(
-      'Delete Cartela',
-      `Remove cartela No-${cardId}?`,
-      [
-        { text: 'Cancel', style: 'cancel' },
-        {
-          text: 'Yes', style: 'destructive',
-          onPress: () => {
-            setDisplayedCards(prev => prev.filter(id => id !== cardId));
-            setMarkedNumbers(prev => { const n = { ...prev }; delete n[cardId]; return n; });
+    if (Platform.OS === 'web') {
+      if (window.confirm(`Remove cartela No-${cardId}?`)) {
+        setDisplayedCards(prev => prev.filter(id => id !== cardId));
+        setMarkedNumbers(prev => { const n = { ...prev }; delete n[cardId]; return n; });
+      }
+    } else {
+      Alert.alert(
+        'Delete Cartela',
+        `Remove cartela No-${cardId}?`,
+        [
+          { text: 'Cancel', style: 'cancel' },
+          {
+            text: 'Yes', style: 'destructive',
+            onPress: () => {
+              setDisplayedCards(prev => prev.filter(id => id !== cardId));
+              setMarkedNumbers(prev => { const n = { ...prev }; delete n[cardId]; return n; });
+            }
           }
-        }
-      ]
-    );
+        ]
+      );
+    }
   };
 
   const renderCard = useCallback((cardId) => {
